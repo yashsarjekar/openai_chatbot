@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ## Langsmith Tracking
-os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
+
 os.environ["LANGCHAIN_TRACING_V2"]="true"
 os.environ["LANGCHAIN_PROJECT"]="Simple Q&A Chatbot With OPENAI"
 
@@ -38,8 +38,8 @@ st.title("Enhanced Q&A Chatbot With OpenAI")
 
 ## Sidebar for settings
 st.sidebar.title("Settings")
-api_key=st.sidebar.text_input("Enter your Open AI API Key:",type="password")
-
+api_key=st.sidebar.text_input("Enter your OpenAI API Key:",type="password")
+lang_chain_api_key=st.sidebar.text_input("Enter your Langchain API Key:",type="password")
 ## Select the OpenAI model
 engine=st.sidebar.selectbox("Select Open AI model",["gpt-4o","gpt-4-turbo","gpt-4"])
 
@@ -47,7 +47,7 @@ engine=st.sidebar.selectbox("Select Open AI model",["gpt-4o","gpt-4-turbo","gpt-
 temperature=st.sidebar.slider("Temperature",min_value=0.0,max_value=1.0,value=0.7)
 max_tokens = st.sidebar.slider("Max Tokens", min_value=50, max_value=300, value=150)
 
-
+os.environ["LANGCHAIN_API_KEY"]=lang_chain_api_key
 
 ## MAin interface for user input
 st.write("Go ahead and ask any question")
