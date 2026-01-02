@@ -25,8 +25,6 @@ prompt=ChatPromptTemplate.from_messages(
 
 
 def generate_response(question,api_key,engine,temperature,max_tokens):
-    openai.api_key=api_key
-
     llm=ChatOpenAI(model=engine,temperature=temperature,max_tokens=max_tokens)
     output_parser=StrOutputParser()
     chain=prompt|llm|output_parser
@@ -54,6 +52,7 @@ st.write("Go ahead and ask any question")
 user_input=st.text_input("You:")
 
 if user_input and api_key:
+    os.environ["OPENAI_API_KEY"] = api_key
     response=generate_response(user_input,api_key,engine,temperature,max_tokens)
     st.write(response)
 elif user_input:
